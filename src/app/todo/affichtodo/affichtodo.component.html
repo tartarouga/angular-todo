@@ -1,0 +1,50 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <input type="text" [(ngModel)]="filterList">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<table class=" table table-striped">
+    <thead>
+        <tr>
+            <th scope=" col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">Etat</th>
+            <th scope="col">User</th>
+            <th scope="col">Delete</th>
+            <th scope="col">Modify</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let todo of tab | filter:filterList; let i=index">
+
+            <th scope="row">{{i}}</th>
+            <td>{{todo.titre}}</td>
+            <td [innerHtml]="todo.description"></td>
+            <td>{{todo.etat}}</td>
+            <td>{{todo.user}}</td>
+            <td>
+                <button type="button" (click)="delete(i)" *ngIf="todo.user==auth.connectedUser.usrename">
+                    <fa-icon style="color:red;" [icon]="faTrash"></fa-icon>
+                </button>
+            </td>
+            <td>
+
+
+                <button (click)="modif(todo,i)" *ngIf="todo.user==auth.connectedUser.usrename">
+                    <fa-icon style="color:green;" [icon]="faEdit">
+                    </fa-icon>
+                </button>
+
+
+            </td>
+        </tr>
+
+    </tbody>
+</table>

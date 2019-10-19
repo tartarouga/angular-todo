@@ -1,0 +1,129 @@
+<div class="container bookcard">
+    <div class="row"></div>
+    <div class="col-md-6">
+        <div class="card">
+
+            <div class="card-header">
+                BOOK DESCRIPTION
+            </div>
+            <div class="card-body">
+                <form [formGroup]="crudForm">
+                    <div class="form-group">
+                        <label for="titre">BOOK TITLE</label>
+                        <input type="text" class="form-control" id="titre" placeholder="Enter a Book title"
+                            formControlName="titre"
+                            [ngClass]="{'is-invalid': crudForm.get('titre').touched && crudForm.get('titre').invalid}">
+                        <div *ngIf="crudForm.get('titre').touched && crudForm.get('titre').invalid"
+                            class="invalid-feedback">
+                            <div *ngIf="crudForm.get('titre').errors.required">Name is required</div>
+                            <div *ngIf="crudForm.get('titre').errors.minlength">Title must be 5 characters</div>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="description">BOOK DESCRIPTION</label>
+                        <textarea class="form-control" id="description" rows="3" placeholder="Enter a description "
+                            formControlName="description"
+                            [ngClass]="{'is-invalid': crudForm.get('description').touched && crudForm.get('description').invalid}"></textarea>
+                        <div *ngIf="crudForm.get('description').touched && crudForm.get('description').invalid"
+                            class="invalid-feedback">
+                            <div *ngIf="crudForm.get('description').errors.required">Description is required</div>
+                            <div *ngIf="crudForm.get('description').errors.maxlength">20 characters max</div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block" (click)="save()"
+                        [disabled]="!crudForm.valid">Save</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <table class=" table table-striped">
+            <thead *ngIf="submitted">
+                <tr>
+                    <th scope=" col">#</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Delete</th>
+                    <th scope="col">Modify</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let todo of tabcrud; let i=index">
+
+                    <th scope="row">{{i+1}}</th>
+                    <td>{{todo.titre}}</td>
+                    <td>{{todo.description}}</td>
+                    <td>
+                        <button type="button" (click)="delete(i)">
+                            <fa-icon style="color:red;" [icon]="faTrash"></fa-icon>
+                        </button>
+                    </td>
+                    <td>
+
+
+                        <button type="button" data-toggle="modal" data-target="#exampleModal" (click)="modif(todo,i)">
+                            <fa-icon style="color:green;" [icon]="faEdit"></fa-icon>
+                        </button>
+
+
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+
+    </div>
+
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modifier</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="updateForm">
+                    <div class="form-goup">
+                        <label for="titre">BOOK TITLE</label>
+                        <input type="text" class="form-control" id="titre" [value]="val1" formControlName="titre"
+                            [ngClass]="{'is-invalid': updateForm.get('titre').touched && updateForm.get('titre').invalid}">
+                        <div *ngIf="updateForm.get('titre').touched && updateForm.get('titre').invalid"
+                            class="invalid-feedback">
+                            <div *ngIf="updateForm.get('titre').errors.required">Name is required</div>
+                            <div *ngIf="updateForm.get('titre').errors.minlength">Title must be 5 characters</div>
+                        </div>
+
+                    </div>
+                    <div class="form-goup">
+                        <label for="titre">DESCRIPTION</label>
+                        <input type="text" class="form-control" id="description" [value]="val2"
+                            formControlName="description"
+                            [ngClass]="{'is-invalid': updateForm.get('description').touched && updateForm.get('description').invalid}">
+                        <div *ngIf="updateForm.get('description').touched && updateForm.get('description').invalid"
+                            class="invalid-feedback">
+                            <div *ngIf="updateForm.get('description').errors.required">description is required</div>
+                            <div *ngIf="updateForm.get('description').errors.maxlength">20 characters max</div>
+                        </div>
+
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" (click)="update(i)" [disabled]="!updateForm.valid">Save
+                    changes</button>
+            </div>
+        </div>
+    </div>
+</div>

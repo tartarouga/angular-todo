@@ -1,0 +1,47 @@
+<h1>Mise à jour les données </h1>
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card bookcard">
+
+                <div class="card-header">
+                    BOOK DESCRIPTION
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="updateForm">
+                        <div class="form-group">
+                            <label for="titre">BOOK TITLE</label>
+                            <input type="text" class="form-control" id="titre" placeholder="Enter a Book title"
+                                formControlName="titre"
+                                [ngClass]="{'is-invalid': updateForm.get('titre').touched && updateForm.get('titre').invalid}">
+                            <div *ngIf="updateForm.get('titre').touched && updateForm.get('titre').invalid"
+                                class="invalid-feedback">
+                                <div *ngIf="updateForm.get('titre').errors.required">Name is required</div>
+                                <div *ngIf="updateForm.get('titre').errors.minlength">Title must be 5 characters</div>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="description">BOOK DESCRIPTION</label>
+                            <textarea class="form-control" id="description" rows="3" placeholder="Enter a description "
+                                formControlName="description"
+                                [ngClass]="{'is-invalid': updateForm.get('description').touched && updateForm.get('description').invalid}"></textarea>
+                            <div *ngIf="updateForm.get('description').touched && updateForm.get('description').invalid"
+                                class="invalid-feedback">
+                                <div *ngIf="updateForm.get('description').errors.required">Description is required</div>
+                                <div *ngIf="updateForm.get('description').errors.maxlength">20 characters max</div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block" (click)="save()"
+                            [disabled]="!updateForm.valid">Save</button>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block" (click)="retour()">Afficher la
+                            liste</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

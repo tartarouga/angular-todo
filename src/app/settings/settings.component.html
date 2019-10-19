@@ -1,0 +1,20 @@
+<div class="container">
+    <h1>please choose the city</h1>
+
+    <form (ngSubmit)="onSubmit(form)" #form="ngForm">
+        <div class="form-group">
+            <label for="exampleFormControlSelect1">Example select</label>
+            <select class="form-control" ngModel id="select" name='city'>
+                <option>Tunis</option>
+                <option>Nabeul</option>
+                <option>Sousse</option>
+                <option>Sfax</option>
+                <option>Zaghouan</option>
+            </select>
+        </div>
+        <button class="btn btn-primary" (click)="save()">Save</button>
+    </form>
+
+
+
+</div>
